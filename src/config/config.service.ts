@@ -2,6 +2,8 @@ import { Inject, Injectable } from '@nestjs/common';
 import * as dotenv from 'dotenv';
 import * as fs from 'fs';
 import * as path from 'path';
+import * as Joi from 'joi';
+
 import { CONFIG_OPTIONS } from './constants';
 import { ConfigOptions, EnvConfig } from './interfaces';
 
@@ -12,10 +14,27 @@ export class ConfigService {
   constructor(@Inject(CONFIG_OPTIONS) options: ConfigOptions) {
     const filePath = `${process.env.NODE_ENV || 'development'}.env`;
     const envFile = path.resolve(__dirname, '../../', options.folder, filePath);
-    this.envConfig = dotenv.parse(fs.readFileSync(envFile));
+    const config = dotenv.parse(fs.readFileSync(envFile));
+    this.envConfig = this.validate(config);
   }
 
   get(key: string): string {
     return this.envConfig[key];
+  }
+
+  validate(env: EnvConfig): EnvConfig {
+    const joiSchema: Joi.ObjectSchema = Joi.object({
+      DB_HOST: Joi.string().required(),
+      DB_PORT: Joi.number().default(5432),
+      DB_USERNAME: Joi.string().required(),
+      DB_PASSWORD: Joi.string().required(),
+      DB_DATABASE: Joi.string().required(),
+    });
+
+    const { error, value } = joiSchema.validate(env);
+    if (error) {
+      throw new Error(`Config validation invalid: ${error.message}`);
+    }
+    return value;
   }
 }
