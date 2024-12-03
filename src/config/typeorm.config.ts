@@ -11,7 +11,6 @@ const envFilePath = path.join(
 
 // Load environment variables
 dotenv.config({ path: envFilePath });
-
 const baseConfig = {
   type: process.env.DB_TYPE,
   host: process.env.DB_HOST,
