@@ -34,14 +34,16 @@ services:
       KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
       KAFKA_DELETE_TOPIC_ENABLE: 'true'
   postgres:
-    image: postgres
+    container_name: postgres_container
+    image: postgres:15-alpine
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: testdb
+    volumes:
+      - pgdata:/var/lib/postgresql/data
     ports:
       - 5432:5432
-    restart: always
   pgadmin:
     container_name: pgadmin_container
     image: dpage/pgadmin4
@@ -79,3 +81,4 @@ volumes:
   boilerplate-db:
   pgadmin:
   grafana_data:
+  pgdata:
