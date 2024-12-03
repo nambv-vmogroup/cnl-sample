@@ -3,7 +3,7 @@ import { CatService } from './cat.service';
 import { CreateCatDto } from './dto/create-cat.dto';
 import { UpdateCatDto } from './dto/update-cat.dto';
 
-@Controller('cat')
+@Controller('cats')
 export class CatController {
   constructor(private readonly catService: CatService) {}
 

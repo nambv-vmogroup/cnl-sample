@@ -1,0 +1,92 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Node Debug",
+      "type": "node",
+      "request": "launch",
+      "preLaunchTask": "build",
+      "sourceMaps": true,
+      "stopOnEntry": false,
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "program": "${workspaceFolder}/src/main.ts",
+      "args": [],
+      "runtimeArgs": [],
+      "cwd": "${workspaceRoot}",
+      "env": {
+        "NODE_ENV": "development"
+      },
+      "autoAttachChildProcesses": true,
+      "outFiles": [
+        "${workspaceFolder}/dist/**/*.js"
+      ],
+      "skipFiles": [
+        "${workspaceFolder}/node_modules/**/*.js"
+      ]
+    },
+    {
+      "name": "TS-Node Debug",
+      "type": "node",
+      "request": "launch",
+      "sourceMaps": true,
+      "stopOnEntry": false,
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "program": "${workspaceFolder}/src/main.ts",
+      "preLaunchTask": "build",
+      "args": [
+        "${relativeFile}"
+      ],
+      "runtimeArgs": [
+        "--nolazy", // tells v8 to compile our code ahead of time, so that breakpoints work correctly
+        "-r", // ensures that ts-node is loaded before it tries to execute our code
+        "ts-node/register"
+      ],
+      "cwd": "${workspaceRoot}",
+      "env": {
+        "NODE_ENV": "local"
+      },
+      "autoAttachChildProcesses": true,
+      "outFiles": [
+        "${workspaceFolder}/dist/**/*.js"
+      ],
+      "skipFiles": [
+        "${workspaceFolder}/node_modules/**/*.js"
+      ]
+    },
+    {
+      "name": "Jest Debug",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceRoot}\\node_modules\\jest\\bin\\jest.js",
+      "args": [
+        "--runInBand",
+        "--no-cache",
+        "--detectOpenHandles",
+        "--runInBand",
+        "--config=${workspaceFolder}/jest.json"
+      ],
+      "runtimeArgs": [
+        "--inspect-brk"
+      ],
+      "env": {
+        "NODE_ENV": "development",
+        "WINSTON_SILENT": "true"
+      },
+      "cwd": "${workspaceRoot}",
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "skipFiles": [
+        "${workspaceFolder}/node_modules/**/*.js"
+      ]
+    },
+    {
+      "name": "Attach to Process",
+      "type": "node",
+      "request": "attach",
+      "restart": true,
+      "processId": "${command:PickProcess}"
+    }
+  ]
+}

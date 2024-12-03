@@ -4,10 +4,10 @@ import * as dotenv from 'dotenv';
 import * as path from 'path';
 
 // Dynamically load the environment file from the config folder
-const envFilePath = path.join(
-  __dirname,
-  `../../config/${process.env.NODE_ENV || 'development'}.env`
-);
+const isCompiled = path.extname(__filename) === '.js';
+const filePath = isCompiled ? `../../../config/${process.env.NODE_ENV || 'development'}.env` 
+  : `../../config/${process.env.NODE_ENV || 'development'}.env`
+const envFilePath = path.join(__dirname, filePath);
 
 // Load environment variables
 dotenv.config({ path: envFilePath });
@@ -20,13 +20,12 @@ const baseConfig = {
   database: process.env.DB_NAME,
   entities: [path.join(__dirname, '/../**/*.entity{.ts,.js}')],
   migrations: [path.join(__dirname, '../migrations/*{.ts,.js}')],
+  // migraionsRun: true
 };
-
 // Export configuration for NestJS
 export const typeOrmConfig = {
   ...baseConfig,
   synchronize: false,
-  migrationsRun: false, // Enable in tests if needed
 };
 
 // Export configuration for TypeORM CLI
