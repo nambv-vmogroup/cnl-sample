@@ -1,11 +1,10 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
-import { CatModule } from '../src/cat/cat.module';
+import { CatModule } from '../src/modules/cat/cat.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { GenericContainer, StartedTestContainer } from 'testcontainers';
 import { dataSourceConfig } from '../src/config/typeorm.config';
-
 describe('CatModule (e2e)', () => {
   let app: INestApplication;
   let container: StartedTestContainer;
