@@ -21,7 +21,7 @@ import { ExceptionsFilterFilter } from './common/filters/exceptions-filter.filte
     AppService,
     {
       provide: 'APP_INTERCEPTOR',
-      useClass: LoggingInterceptor
+      useClass: LoggingInterceptor,
     },
     {
       provide: 'APP_FILTER',
@@ -30,7 +30,7 @@ import { ExceptionsFilterFilter } from './common/filters/exceptions-filter.filte
     {
       provide: 'APP_PIPE',
       useClass: ValidationPipe,
-    }
+    },
   ],
 })
 export class AppModule {}

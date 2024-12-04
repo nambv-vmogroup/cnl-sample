@@ -1,12 +1,12 @@
-
 import { DataSource, DataSourceOptions } from 'typeorm';
 import * as dotenv from 'dotenv';
 import * as path from 'path';
 
 // Dynamically load the environment file from the config folder
 const isCompiled = path.extname(__filename) === '.js';
-const filePath = isCompiled ? `../../../config/${process.env.NODE_ENV || 'development'}.env` 
-  : `../../config/${process.env.NODE_ENV || 'development'}.env`
+const filePath = isCompiled
+  ? `../../../config/${process.env.NODE_ENV || 'development'}.env`
+  : `../../config/${process.env.NODE_ENV || 'development'}.env`;
 const envFilePath = path.join(__dirname, filePath);
 
 // Load environment variables
@@ -29,4 +29,4 @@ export const typeOrmConfig = {
 };
 
 // Export configuration for TypeORM CLI
-export const dataSourceConfig = new DataSource(baseConfig as DataSourceOptions)
+export const dataSourceConfig = new DataSource(baseConfig as DataSourceOptions);

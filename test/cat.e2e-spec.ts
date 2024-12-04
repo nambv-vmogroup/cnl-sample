@@ -19,19 +19,16 @@ describe('CatModule (e2e)', () => {
       .withExposedPorts(5432)
       .start();
 
-      dataSourceConfig.setOptions({
-        host: container.getHost(),
-        port: container.getMappedPort(5432),
-      });
-  
-      await dataSourceConfig.initialize();
-      await dataSourceConfig.runMigrations();
+    dataSourceConfig.setOptions({
+      host: container.getHost(),
+      port: container.getMappedPort(5432),
+    });
+
+    await dataSourceConfig.initialize();
+    await dataSourceConfig.runMigrations();
 
     const moduleFixture: TestingModule = await Test.createTestingModule({
-      imports: [
-        CatModule,
-        TypeOrmModule.forRoot(dataSourceConfig.options),
-      ],
+      imports: [CatModule, TypeOrmModule.forRoot(dataSourceConfig.options)],
     }).compile();
 
     app = moduleFixture.createNestApplication();

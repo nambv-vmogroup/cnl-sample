@@ -8,12 +8,10 @@ import { UpdateCatDto } from './dto/update-cat.dto';
 
 @Injectable()
 export class CatService {
-  constructor(
-    @InjectRepository(Cat) private catRepository: Repository<Cat>,
-  ) {}
+  constructor(@InjectRepository(Cat) private catRepository: Repository<Cat>) {}
   async create(createCatDto: CreateCatDto) {
     const cat = this.catRepository.create(createCatDto);
-    return this.catRepository.save(cat)
+    return this.catRepository.save(cat);
   }
 
   async findAll() {

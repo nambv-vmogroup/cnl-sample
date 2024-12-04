@@ -14,7 +14,12 @@ export class ConfigService {
   constructor(@Inject(CONFIG_OPTIONS) options: ConfigOptions) {
     const filePath = `${process.env.NODE_ENV || 'development'}.env`;
     const isCompiled = path.extname(__filename) === '.js';
-    const envFile = path.resolve(__dirname, isCompiled ? '../../../': '../../', options.folder, filePath);
+    const envFile = path.resolve(
+      __dirname,
+      isCompiled ? '../../../' : '../../',
+      options.folder,
+      filePath,
+    );
     const config = dotenv.parse(fs.readFileSync(envFile));
     this.envConfig = this.validate(config);
   }

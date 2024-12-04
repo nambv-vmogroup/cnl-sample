@@ -1,5 +1,9 @@
-import { number } from 'joi';
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  CreateDateColumn,
+} from 'typeorm';
 
 @Entity()
 export class Cat {
@@ -13,8 +17,8 @@ export class Cat {
   description: string;
 
   @Column('integer')
-  age: number
+  age: number;
 
   @CreateDateColumn()
-  createdAt: Date
+  createdAt: Date;
 }

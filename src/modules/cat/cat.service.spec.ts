@@ -30,7 +30,11 @@ describe('CatService', () => {
   });
 
   it('should create a cat', async () => {
-    const createCatDto: CreateCatDto = { name: 'Tom', age: 3, breed: 'Siamese' };
+    const createCatDto: CreateCatDto = {
+      name: 'Tom',
+      age: 3,
+      breed: 'Siamese',
+    };
     const cat = { id: 1, ...createCatDto };
 
     jest.spyOn(repository, 'create').mockReturnValue(cat as any);
@@ -39,7 +43,12 @@ describe('CatService', () => {
   });
 
   it('should find all cats', async () => {
-    const cat = { id: 1, name: 'Tom', age: 3, breed: 'Siamese' } as unknown as Cat;
+    const cat = {
+      id: 1,
+      name: 'Tom',
+      age: 3,
+      breed: 'Siamese',
+    } as unknown as Cat;
     const cats = [cat];
 
     jest.spyOn(repository, 'find').mockResolvedValue(cats);
@@ -56,7 +65,11 @@ describe('CatService', () => {
   });
 
   it('should update a cat', async () => {
-    const updateCatDto: UpdateCatDto = { name: 'Tommy', age: 4, breed: 'Siamese' };
+    const updateCatDto: UpdateCatDto = {
+      name: 'Tommy',
+      age: 4,
+      breed: 'Siamese',
+    };
 
     jest.spyOn(repository, 'update').mockResolvedValue({ affected: 1 } as any);
 
