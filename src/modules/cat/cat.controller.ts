@@ -13,7 +13,19 @@ import { UpdateCatDto } from './dto/update-cat.dto';
 
 @Controller('cats')
 export class CatController {
-  constructor(private readonly catService: CatService) {}
+  constructor(
+    private readonly catService: CatService,
+  ) {}
+
+  @Get('fibWorker/:n')
+  calculateFibWorker(@Param('n') n: number) {
+    return this.catService.calculateFibWorker(n);
+  }
+
+  @Get('fibSync/:n')
+  calculateFibSync(@Param('n') n: number) {
+    return this.catService.calculateFibSync(n);
+  }
 
   @Post()
   create(@Body() createCatDto: CreateCatDto) {
