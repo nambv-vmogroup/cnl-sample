@@ -25,6 +25,7 @@ install_dependencies:
   script:
     - echo "Installing dependencies..."
     - npm ci
+    - npm install -g @nestjs/cli
   cache:
     policy: pull-push
 
