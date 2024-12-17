@@ -1,13 +1,11 @@
 # Use a Node.js Docker image
-default:
-  image: node:18
+image: node:18
 
 # Cache dependencies
 cache:
   key: cache-dependencies
   paths:
     - node_modules/
-    - dist/
 
 .standard-rules:
   rules:
@@ -26,7 +24,7 @@ install_dependencies:
   extends: .standard-rules
   script:
     - echo "Installing dependencies..."
-    - npm install
+    - npm ci
   cache:
     policy: pull-push
 
