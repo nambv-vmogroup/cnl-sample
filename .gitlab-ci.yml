@@ -34,7 +34,6 @@ build_project:
   extends: .standard-rules
   script:
     - echo "Building the project..."
-    - npm ci
     - npm run build
   cache:
     policy: pull
