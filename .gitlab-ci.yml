@@ -1,9 +1,64 @@
-build-job:
-  stage: build
-  script:
-    - echo "Hello, $GITLAB_USER_LOGIN!"
+# Use a Node.js Docker image
+default:
+  image: node:18
 
-test-job1:
+# Cache dependencies
+cache:
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+    - node_modules/
+    - dist/
+
+.standard-rules:
+  - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "develop"
+    when: always
+
+# Define stages
+stages:
+  - install
+  - build
+  - test
+
+# Install dependencies
+install_dependencies:
+  extend:
+    - .standard-rules
+  stage: install
+  script:
+    - echo "Installing dependencies..."
+    - npm ci
+  cache:
+    policy: pull-push
+
+# Build the project
+build_project:
+  stage: build
+  extend:
+    - .standard-rules
+  script:
+    - echo "Building the project..."
+    - npm run build
+  cache:
+    policy: pull
+  artifacts:
+    paths:
+      - dist/
+    expire_in: 1 day
+
+# Run tests
+run_tests:
   stage: test
   script:
-    - echo "This job tests something"
+    - echo "Running tests..."
+    - npm run test
+    - npm run test:e2e # Add this if you have e2e tests
+  cache:
+    policy: pull
+
+# Optional: Linting stage
+lint_code:
+  stage: test
+  script:
+    - echo "Running lint..."
+    - npm run lint
+  allow_failure: true
