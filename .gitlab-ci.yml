@@ -21,7 +21,7 @@ stages:
 
 # Install dependencies
 install_dependencies:
-  extend:
+  extends:
     - .standard-rules
   stage: install
   script:
@@ -33,7 +33,7 @@ install_dependencies:
 # Build the project
 build_project:
   stage: build
-  extend:
+  extends:
     - .standard-rules
   script:
     - echo "Building the project..."
@@ -48,6 +48,8 @@ build_project:
 # Run tests
 run_tests:
   stage: test
+  extends:
+    - .standard-rules
   script:
     - echo "Running tests..."
     - npm run test
@@ -57,6 +59,8 @@ run_tests:
 
 # Optional: Linting stage
 lint_code:
+  extends:
+    - .standard-rules
   stage: test
   script:
     - echo "Running lint..."
