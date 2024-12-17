@@ -26,7 +26,7 @@ install_dependencies:
     - echo "Installing dependencies..."
     - npm ci
   cache:
-    policy: pull-push
+    policy: push
 
 # Build the project
 build_project:
