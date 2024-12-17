@@ -25,7 +25,6 @@ install_dependencies:
   script:
     - echo "Installing dependencies..."
     - npm ci
-    - npm install -g @nestjs/cli
   cache:
     policy: pull-push
 
@@ -35,6 +34,7 @@ build_project:
   extends: .standard-rules
   script:
     - echo "Building the project..."
+    - npm ci
     - npm run build
   cache:
     policy: pull
