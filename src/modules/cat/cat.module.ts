@@ -5,9 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Cat } from './entities/cat.entity';
 
 @Module({
-  imports: [
-    TypeOrmModule.forFeature([Cat])
-  ],
+  imports: [TypeOrmModule.forFeature([Cat])],
   controllers: [CatController],
   providers: [CatService],
   exports: [CatService],

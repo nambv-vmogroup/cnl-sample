@@ -38,6 +38,7 @@ describe('CatService', () => {
     const cat = { id: 1, ...createCatDto };
 
     jest.spyOn(repository, 'create').mockReturnValue(cat as any);
+    jest.spyOn(repository, 'save').mockReturnValue(cat as any);
 
     expect(await service.create(createCatDto)).toEqual(cat);
   });
