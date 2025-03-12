@@ -1,6 +1,21 @@
 version: "3"
 
 services:
+  app:
+    container_name: boilerplate-app
+    image: app:v1
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+    depends_on:
+      - postgres
+      - redis
+      - kafka
+    environment:
+      - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/testdb
+      - REDIS_URL=redis://redis:6379
+      - KAFKA_URL=kafka:29092
   redis:
     container_name: test-redis
     image: redis

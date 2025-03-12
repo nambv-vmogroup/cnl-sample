@@ -22,6 +22,7 @@ const baseConfig = {
   migrations: [path.join(__dirname, '../migrations/*{.ts,.js}')],
   // migraionsRun: true
 };
+
 // Export configuration for NestJS
 export const typeOrmConfig = {
   ...baseConfig,

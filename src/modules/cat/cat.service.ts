@@ -14,7 +14,10 @@ export class CatService {
   constructor(@InjectRepository(Cat) private catRepository: Repository<Cat>) {}
 
   private pool = new Piscina({
-    filename: join(__dirname, `../../workers/fibonacci.worker.${process.env.NODE_ENV === 'test' ? 'ts' : 'js'}`), // Worker file
+    filename: join(
+      __dirname,
+      `../../workers/fibonacci.worker.${process.env.NODE_ENV === 'test' ? 'ts' : 'js'}`,
+    ), // Worker file
     maxThreads: Math.max(2, os.cpus().length - 1), // Maximum number of threads
     idleTimeout: 10000, // Close thread if idle
   });

@@ -45,7 +45,7 @@ run_tests:
   script:
     - echo "Running tests..."
     - npm run test
-    - npm run test:e2e # Add this if you have e2e tests
+    - npm run test:e2e
   dependencies:
     - install_dependencies
 
