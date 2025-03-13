@@ -36,6 +36,8 @@ export class ConfigService {
       DB_PASSWORD: Joi.string().required(),
       DB_NAME: Joi.string().required(),
       DB_TYPE: Joi.string().required(),
+      REDIS_HOST: Joi.string().required(),
+      REDIS_PORT: Joi.number().required(),
     });
 
     const { error, value } = joiSchema.validate(env);

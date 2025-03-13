@@ -4,6 +4,7 @@ import {
   ExceptionFilter,
   HttpException,
   HttpStatus,
+  Logger,
 } from '@nestjs/common';
 import { HttpAdapterHost } from '@nestjs/core';
 
@@ -33,12 +34,14 @@ export class ExceptionsFilterFilter implements ExceptionFilter {
           });
           break;
         default:
+          Logger.error(exception);
           response.status(status).json({
             statusCode: status,
             message: 'Internal server error',
           });
       }
     } else {
+      Logger.error(exception);
       response.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
         statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
         message: 'Internal server error',

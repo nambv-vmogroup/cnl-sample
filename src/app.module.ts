@@ -9,12 +9,14 @@ import { CatModule } from './modules/cat/cat.module';
 import { typeOrmConfig } from './config/typeorm.config';
 import { LoggingInterceptor } from './common/interceptors/logging.interceptor';
 import { ExceptionsFilterFilter } from './common/filters/exceptions-filter.filter';
+import { TictactoeModule } from './modules/tictactoe/tictactoe.module';
 
 @Module({
   imports: [
     ConfigModule.register({ folder: './config' }),
     TypeOrmModule.forRoot(typeOrmConfig as TypeOrmModuleOptions),
     CatModule,
+    TictactoeModule,
   ],
   controllers: [AppController],
   providers: [
