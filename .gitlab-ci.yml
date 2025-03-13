@@ -1,17 +1,9 @@
 # Use a Node.js Docker image
-default:
-  image: node:18
-
-# Cache dependencies
-cache:
-  key: cache-dependencies
-  paths:
-    - node_modules/
-    - dist/
+image: node:18
 
 .standard-rules:
   rules:
-    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "develop"
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "develop"
       when: always
 
 # Define stages
@@ -27,8 +19,10 @@ install_dependencies:
   script:
     - echo "Installing dependencies..."
     - npm ci
-  cache:
-    policy: pull-push
+  artifacts:
+    paths:
+      - node_modules/
+    expire_in: 1 day
 
 # Build the project
 build_project:
@@ -37,8 +31,8 @@ build_project:
   script:
     - echo "Building the project..."
     - npm run build
-  cache:
-    policy: pull
+  dependencies:
+    - install_dependencies
   artifacts:
     paths:
       - dist/
@@ -51,9 +45,9 @@ run_tests:
   script:
     - echo "Running tests..."
     - npm run test
-    - npm run test:e2e # Add this if you have e2e tests
-  cache:
-    policy: pull
+    - npm run test:e2e
+  dependencies:
+    - install_dependencies
 
 # Optional: Linting stage
 lint_code:
@@ -63,3 +57,5 @@ lint_code:
     - echo "Running lint..."
     - npm run lint
   allow_failure: true
+  dependencies:
+    - install_dependencies

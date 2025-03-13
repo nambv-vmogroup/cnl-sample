@@ -33,4 +33,4 @@ RUN npm install --only=production
 EXPOSE 3000
 
 # Define the command to run the app
-CMD ["node", "dist/index.js"]
+CMD ["node", "dist/src/main.js"]
